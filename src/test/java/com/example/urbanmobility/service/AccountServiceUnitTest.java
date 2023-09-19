@@ -1,14 +1,18 @@
 package com.example.urbanmobility.service;
 import com.example.urbanmobility.entity.Account;
 import com.example.urbanmobility.repository.AccountRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class AccountServiceUnitTest {
@@ -23,7 +27,7 @@ class AccountServiceUnitTest {
 
     @BeforeEach
     public void setup(){
-        account = Account.builder()
+         account = Account.builder()
                 .username("Roder")
                 .role("User")
                 .email("Roder@example.com")
@@ -36,23 +40,15 @@ class AccountServiceUnitTest {
 
     @Test
     public void Should_ReturnAccount_When_CreateAccount(){
-        // Arrange - given that the driverRepo.save() method will return driverOne
+        // Arrange
         given(accountRepository.save(account)).willReturn(account);
 
-        // test createDriver()
-        Driver savedDriver = driverService.createDriver(driverOne);
+        // Act
+        Account savedAccount = accountService.createAccount(account);
 
-        // Make sure it returns driver
-        assertThat(savedDriver).isNotNull();
-        verify(driverRepo, times(1)).save(driverOne);
-        verifyNoMoreInteractions(driverRepo);
+        // Assert
+        Assertions.assertThat(savedAccount).isNotNull();
+        verify(accountRepository, times(1)).save(account);
+        verifyNoMoreInteractions(accountRepository);
     }
-
-
-
-
-
-
-
-
 }

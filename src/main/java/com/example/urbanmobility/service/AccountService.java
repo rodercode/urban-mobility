@@ -1,10 +1,17 @@
 package com.example.urbanmobility.service;
 import com.example.urbanmobility.entity.Account;
+import com.example.urbanmobility.repository.AccountRepository;
 import org.springframework.stereotype.Service;
 @Service
 public class AccountService {
 
+    private final AccountRepository accountRepository;
+
+    public AccountService(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
+    }
+
     public Account createAccount(Account account){
-        return null;
+        return accountRepository.save(account);
     }
 }
