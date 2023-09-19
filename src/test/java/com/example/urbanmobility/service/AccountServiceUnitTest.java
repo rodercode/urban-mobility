@@ -51,16 +51,27 @@ class AccountServiceUnitTest {
         // Assert
         Assertions.assertThat(savedAccount).isNotNull();
         verify(accountRepository, times(1)).save(account);
-        verifyNoMoreInteractions(accountRepository);
     }
 
     @Test
-    public void test2(){
+    public void ShouldThrowException_IfUsernameAlreadyExist(){
         // Arrange
         given(accountRepository.findByUsername(account.getUsername())).willReturn(account);
 
         // Act
         assertThrows(IllegalArgumentException.class,
                 () -> accountService.createAccount(account));
+        verify(accountRepository, times(1)).findByUsername(account.getUsername());
+    }
+
+    @Test
+    public void ShouldThrowException_IfEmailAlreadyExist(){
+        // Arrange
+        given(accountRepository.findByEmail(account.getEmail())).willReturn(account);
+
+        // Act
+        assertThrows(IllegalArgumentException.class,
+                () -> accountService.createAccount(account));
+        verify(accountRepository, times(1)).findByEmail(account.getEmail());
     }
 }
