@@ -1,12 +1,14 @@
 package com.example.urbanmobility.service;
 import com.example.urbanmobility.entity.Account;
 import com.example.urbanmobility.repository.AccountRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -50,5 +52,15 @@ class AccountServiceUnitTest {
         Assertions.assertThat(savedAccount).isNotNull();
         verify(accountRepository, times(1)).save(account);
         verifyNoMoreInteractions(accountRepository);
+    }
+
+    @Test
+    public void test2(){
+        // Arrange
+        given(accountRepository.findByUsername(account.getUsername())).willReturn(account);
+
+        // Act
+        assertThrows(IllegalArgumentException.class,
+                () -> accountService.createAccount(account));
     }
 }
