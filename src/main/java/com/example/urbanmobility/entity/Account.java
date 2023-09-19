@@ -1,6 +1,8 @@
 package com.example.urbanmobility.entity;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.context.annotation.Primary;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -12,24 +14,24 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username", nullable = false)
+    @Column(nullable = false)
     private String username;
 
-    @Column(name = "role", nullable = false)
+    @Column(nullable = false)
     private String role;
 
-    @Column(name = "email", nullable = false)
+    @Column(nullable = false)
     private String email;
 
-    @Column(name = "phone", nullable = false)
+    @Column(nullable = false)
     private String phone;
 
-    @Column(name = "payment_history", nullable = false)
+    @Column(nullable = false)
     private int paymentHistory;
 
-    @Column(name = "credit_detail", nullable = false)
-    private String creditDetail;
+    @Column(nullable = false)
+    private String paymentMethod;
 
-    @Column(name = "is_payment_set", nullable = false)
+    @Column(nullable = false)
     private boolean isPaymentSet;
 }

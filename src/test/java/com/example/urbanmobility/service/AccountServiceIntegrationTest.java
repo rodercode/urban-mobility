@@ -35,7 +35,7 @@ public class AccountServiceIntegrationTest {
                 .email("Roder@example.com")
                 .phone("08123456789")
                 .paymentHistory(0)
-                .creditDetail("1234-5678-9012-3456")
+                .paymentMethod("swish")
                 .isPaymentSet(true)
                 .build();
 
