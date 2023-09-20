@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/account")
 public class AccountController {
@@ -15,10 +17,21 @@ public class AccountController {
         this.accountService = accountService;
     }
 
+    @GetMapping()
+    public List<Account> getAllAccounts() {
+        return accountService.getAllAccounts();
+    }
+
     @PostMapping
     public ResponseEntity<Account> createAccount(@RequestBody Account account) {
         accountService.createAccount(account);
         return new ResponseEntity<>(account, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Account> updateAccount(@PathVariable("id") long accountId, @RequestBody Account account) {
+        accountService.updateAccountById(accountId, account);
+        return new ResponseEntity<>(account, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

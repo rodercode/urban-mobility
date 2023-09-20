@@ -11,6 +11,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
@@ -126,5 +128,29 @@ class AccountServiceUnitTest {
         // Act
         assertThrows(EntityNotFoundException.class,
                 () -> accountService.deleteAccountById(accountId));
+    }
+
+     /*
+    Class: AccountService
+    Method: updateAccount
+    Type of test: Unit test
+
+    Description: System should provide a way for a user to update their details except for their role.
+
+    requirements
+    1. Should not return anything
+    2. Should throw exception if user id does not exist in DB
+    3. User should only be able to remove their own account
+    */
+
+    @Test
+    public void ShouldThrowException_WhenEnterInvalidId(){
+        // Arrange
+        long accountId = account.getId();
+        given(accountRepository.existsById(accountId)).willReturn(false);
+
+        // Act
+        assertThrows(EntityNotFoundException.class,
+                () -> accountService.updateAccountById(accountId, account));
     }
 }

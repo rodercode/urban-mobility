@@ -3,6 +3,10 @@ import com.example.urbanmobility.entity.Account;
 import com.example.urbanmobility.repository.AccountRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class AccountService {
     private final AccountRepository accountRepository;
@@ -11,6 +15,9 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
+    public List<Account> getAllAccounts() {
+        return accountRepository.findAll();
+    }
     public Account createAccount(Account account) {
         // Check if username already exist
         String username = account.getUsername();
@@ -33,5 +40,25 @@ public class AccountService {
             throw new EntityNotFoundException("Account with" + accountId + "does not exist");
         }
         accountRepository.deleteById(accountId);
+    }
+
+    public Account updateAccountById(Long accountId, Account account) {
+        // Throw exception if account does not exist
+        if (!accountRepository.existsById(accountId)) {
+            throw new EntityNotFoundException("Account with" + account.getId() + "does not exist");
+        }
+
+        // Change account information
+        Account fetchedAccount = accountRepository.findById(accountId).get();
+        fetchedAccount.setUsername(account.getUsername());
+        fetchedAccount.setEmail(account.getEmail());
+        fetchedAccount.setPhone(account.getPhone());
+        fetchedAccount.setPaymentMethod(account.getPaymentMethod());
+        fetchedAccount.setPaymentHistory(account.getPaymentHistory());
+        fetchedAccount.setPaymentSet(account.isPaymentSet());
+        fetchedAccount.setRole(account.getRole());
+
+        // Save changes to database
+        return accountRepository.save(fetchedAccount);
     }
 }

@@ -1,8 +1,6 @@
 package com.example.urbanmobility.entity;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.context.annotation.Primary;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -34,4 +32,19 @@ public class Account {
 
     @Column(nullable = false)
     private boolean isPaymentSet;
+
+    public void setRole(String role) {
+        if(this.role != role){
+            throw new IllegalArgumentException("Role cannot be changed");
+        }
+        this.role = role;
+    }
+
+    public void setPaymentSet(boolean paymentSet) {
+        isPaymentSet = paymentSet;
+    }
+
+    public boolean isPaymentSet() {
+        return isPaymentSet;
+    }
 }
