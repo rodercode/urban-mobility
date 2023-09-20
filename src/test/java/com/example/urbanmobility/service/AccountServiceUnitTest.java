@@ -127,10 +127,4 @@ class AccountServiceUnitTest {
         assertThrows(EntityNotFoundException.class,
                 () -> accountService.deleteAccountById(accountId));
     }
-
-
-
-
-
-
 }
