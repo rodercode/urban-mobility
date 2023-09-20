@@ -104,9 +104,10 @@ class AccountServiceUnitTest {
     */
 
     @Test
-    public void Should_DeleteAccount_WhenPassingValidId(){
+    public void ShouldDeleteAccount_WhenPassingValidId(){
         // Arrange
         long accountId = account.getId();
+        given(accountRepository.existsById(accountId)).willReturn(true);
         willDoNothing().given(accountRepository).deleteById(accountId);
 
         // Act
@@ -114,6 +115,17 @@ class AccountServiceUnitTest {
 
         verify(accountRepository, times(1)).deleteById(accountId);
         verifyNoMoreInteractions(accountRepository);
+    }
+
+    @Test
+    public void ShouldThrowException_WhenPassingInvalidId(){
+        // Arrange
+        long accountId = 2L;
+        given(accountRepository.existsById(accountId)).willReturn(false);
+
+        // Act
+        assertThrows(EntityNotFoundException.class,
+                () -> accountService.deleteAccountById(accountId));
     }
 
 
