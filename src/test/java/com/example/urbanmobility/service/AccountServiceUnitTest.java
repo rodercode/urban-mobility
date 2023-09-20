@@ -14,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willDoNothing;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -30,6 +31,7 @@ class AccountServiceUnitTest {
     @BeforeEach
     public void setup(){
          account = Account.builder()
+                 .id(1L)
                 .username("Roder")
                 .role("User")
                 .email("Roder@example.com")
@@ -39,6 +41,19 @@ class AccountServiceUnitTest {
                 .isPaymentSet(true)
                 .build();
     }
+
+    /*
+    Class: AccountService
+    Method: createAccount
+    Type of test: Unit test
+
+    Description: System should provide a way for a user to create a new account.
+
+    requirements
+    1. Should return Object Account
+    2. Should throw exception if username and email already exist in DB
+    3. Should not return null
+    */
 
     @Test
     public void Should_ReturnAccount_When_CreateAccount(){
@@ -74,4 +89,48 @@ class AccountServiceUnitTest {
                 () -> accountService.createAccount(account));
         verify(accountRepository, times(1)).findByEmail(account.getEmail());
     }
+
+     /*
+    Class: AccountService
+    Method: deleteAccount
+    Type of test: Unit test
+
+    Description: System should provide a way for a user to delete their own account.
+
+    requirements
+    1. Should not return anything
+    2. Should throw exception if user id does not exist in DB
+    3. User should only be able to remove their own account
+    */
+
+    @Test
+    public void ShouldDeleteAccount_WhenPassingValidId(){
+        // Arrange
+        long accountId = account.getId();
+        given(accountRepository.existsById(accountId)).willReturn(true);
+        willDoNothing().given(accountRepository).deleteById(accountId);
+
+        // Act
+        accountService.deleteAccountById(accountId);
+
+        verify(accountRepository, times(1)).deleteById(accountId);
+        verifyNoMoreInteractions(accountRepository);
+    }
+
+    @Test
+    public void ShouldThrowException_WhenPassingInvalidId(){
+        // Arrange
+        long accountId = 2L;
+        given(accountRepository.existsById(accountId)).willReturn(false);
+
+        // Act
+        assertThrows(EntityNotFoundException.class,
+                () -> accountService.deleteAccountById(accountId));
+    }
+
+
+
+
+
+
 }

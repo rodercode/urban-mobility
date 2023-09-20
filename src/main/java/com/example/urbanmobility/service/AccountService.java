@@ -27,4 +27,11 @@ public class AccountService {
         // Save account to database
         return accountRepository.save(account);
     }
+
+    public void deleteAccountById(long accountId) {
+        if (!accountRepository.existsById(accountId)){
+            throw new EntityNotFoundException("Account with" + accountId + "does not exist");
+        }
+        accountRepository.deleteById(accountId);
+    }
 }
