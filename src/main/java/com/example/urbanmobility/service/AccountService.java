@@ -44,12 +44,10 @@ public class AccountService {
 
     public Account updateAccountById(Long accountId, Account account) {
         // Throw exception if account does not exist
-        if (!accountRepository.existsById(accountId)) {
-            throw new EntityNotFoundException("Account with" + account.getId() + "does not exist");
-        }
+        Account fetchedAccount = accountRepository.findById(accountId).orElseThrow(
+                () -> new EntityNotFoundException("Account with" + accountId + "does not exist"));
 
         // Change account information
-        Account fetchedAccount = accountRepository.findById(accountId).get();
         fetchedAccount.setUsername(account.getUsername());
         fetchedAccount.setEmail(account.getEmail());
         fetchedAccount.setPhone(account.getPhone());

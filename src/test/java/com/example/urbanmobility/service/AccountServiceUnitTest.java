@@ -147,10 +147,23 @@ class AccountServiceUnitTest {
     public void ShouldThrowException_WhenEnterInvalidId(){
         // Arrange
         long accountId = account.getId();
-        given(accountRepository.existsById(accountId)).willReturn(false);
-
+        given(accountRepository.findById(accountId)).willReturn(Optional.empty());
         // Act
         assertThrows(EntityNotFoundException.class,
                 () -> accountService.updateAccountById(accountId, account));
+    }
+
+    @Test
+    public void ShouldNotReturnNull_WhenUpdateAccount(){
+        // Arrange
+        long accountId = account.getId();
+        given(accountRepository.findById(1L)).willReturn(Optional.ofNullable(account));
+        given(accountRepository.save(account)).willReturn(account);
+
+        // Act
+        Account updatedAccount = accountService.updateAccountById(accountId, account);
+
+        // Assert
+        assertThat(updatedAccount).isNotNull();
     }
 }
