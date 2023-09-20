@@ -8,17 +8,22 @@
 
 # Setting up pipeline for testing our project in dev environment
 ![image](https://github.com/rodercode/urban-mobility/assets/54941923/068e5439-a1cc-4a13-90b2-4068445158bf)
-1. Add new jobs, enter your repository name and select Freestyle project
-2. In the Source Code Management section, select Git and enter your repository URL
-3. In the Branches to build section change */master to */dev
-4. In the Build Steps press button Add build step and select Execute Windows batch command
-5. In the Command field enter the following command:
+1. To add a new job, you need to press new item.
+![image](https://github.com/rodercode/urban-mobility/assets/54941923/bf4fc827-df8b-417a-8fd8-3a8cbd8cf92c)
+2. Enter your repository name and select Freestyle project
+![image](https://github.com/rodercode/urban-mobility/assets/54941923/38e976bd-9216-4c3b-81c9-9debcde2aa9d)
+4. Go to your job's configure and look for the Source Code Management section, select Git and enter your repository URL
+5. In the Branches to build section change */master to */dev
+![image](https://github.com/rodercode/urban-mobility/assets/54941923/9ba97421-ea62-4c5f-b674-a99d17288bda)
+7. In the Build Steps press button Add build step and select Execute Windows batch command
+8. In the Command field enter the following command:
     echo "STEP #1 - STARTING CLEANING STEP" 
     ./mvnw clean
-6. repeat step 4 and enter following command:
+9. repeat step 4 and enter following command:
     echo "STEP #2 - STARTING PACKAGE STEP" 
     ./mvnw package
-7. go back to Dashboard, press the job you just created and then press build.
+![image](https://github.com/rodercode/urban-mobility/assets/54941923/3b7c174b-5051-46e8-ae21-1c6516c715ef)
+11. Go back to Dashboard, press the job you just created, then press Build.
 
     
 
