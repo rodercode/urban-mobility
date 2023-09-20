@@ -7,6 +7,8 @@
 ## How to configure Jenkins to run tests
 
 # Setting up pipeline for testing in dev environment
+![image](https://github.com/rodercode/urban-mobility/assets/54941923/17eefa3e-1853-415c-84a9-135fe3201506)
+
     
 1. Add new jobs, enter your repository name and select Freestyle project
 2. In the Source Code Management section, select Git and enter your repository URL
