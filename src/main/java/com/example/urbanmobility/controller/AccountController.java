@@ -20,4 +20,12 @@ public class AccountController {
         accountService.createAccount(account);
         return new ResponseEntity<>(account, HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteAccount(@PathVariable("id") int accountId) {
+        accountService.deleteAccountById(accountId);
+        return new ResponseEntity<>("Account was deleted successfully", HttpStatus.OK);
+    }
+
+
 }
