@@ -17,20 +17,21 @@ Enter your repository name and select Freestyle project
 ![image](https://github.com/rodercode/urban-mobility/assets/54941923/38e976bd-9216-4c3b-81c9-9debcde2aa9d)
 
 Go to your job's configure and look for the Source Code Management section, select Git and enter your repository URL
-In the Branches to build section change */master to */dev
+
+In the Branches to build section, change */master to the branch you want Jenkins to test */dev
 
 ![image](https://github.com/rodercode/urban-mobility/assets/54941923/9ba97421-ea62-4c5f-b674-a99d17288bda)
 
-In the Build Steps press button Add build step and select Execute Windows batch command
-In the Command field enter the following command:
+In the Build Steps, press the button Add build step and select Execute Windows batch command
+In the Command field, enter the following command:
     echo "STEP #1 - STARTING CLEANING STEP" 
     ./mvnw clean
-repeat step 4 and enter following command:
+repeat step 4 and enter the following command:
     echo "STEP #2 - STARTING PACKAGE STEP" 
     ./mvnw package
 ![image](https://github.com/rodercode/urban-mobility/assets/54941923/3b7c174b-5051-46e8-ae21-1c6516c715ef)
 
-Go back to Dashboard, press the job you just created, then press Build.
+Return to Dashboard, press the job you just created, then Build.
 
     
 
