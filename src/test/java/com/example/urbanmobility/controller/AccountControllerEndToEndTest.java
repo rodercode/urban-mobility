@@ -1,9 +1,9 @@
 package com.example.urbanmobility.controller;
-
 import com.example.urbanmobility.entity.Account;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -25,7 +25,6 @@ import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 @SpringBootTest
 @AutoConfigureMockMvc
 class AccountControllerEndToEndTest {
@@ -34,8 +33,8 @@ class AccountControllerEndToEndTest {
     private MockMvc mvc;
 
     @Test
-    public void createEmployeeAPI() throws Exception {
-
+    @DisplayName("Test POST end point -> /api/account")
+    public void createAccountAPI() throws Exception {
     Account account = Account.builder()
             .username("Roder")
             .role("User")
@@ -46,7 +45,6 @@ class AccountControllerEndToEndTest {
             .isPaymentSet(true)
             .build();
 
-
         ObjectMapper mapper = new ObjectMapper();
         String jsonAccount = mapper.writeValueAsString(account);
 
@@ -55,7 +53,7 @@ class AccountControllerEndToEndTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonAccount)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", Matchers.is(1)))
                 .andExpect(jsonPath("$.username", Matchers.is("Roder")))
                 .andExpect(jsonPath("$.email", Matchers.is("Roder@example.com")));
