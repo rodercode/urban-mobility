@@ -1,24 +1,13 @@
 package com.example.urbanmobility.service;
-
 import com.example.urbanmobility.entity.Account;
 import com.example.urbanmobility.repository.AccountRepository;
-import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 @SpringBootTest
 public class AccountServiceIntegrationTest {
 
@@ -35,6 +24,7 @@ public class AccountServiceIntegrationTest {
     @BeforeEach
     public void setup(){
         account = Account.builder()
+                .id(1L)
                 .username("Roder")
                 .role("User")
                 .email("Roder@example.com")
