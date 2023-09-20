@@ -1,6 +1,8 @@
 package com.example.urbanmobility.controller;
 import com.example.urbanmobility.entity.Account;
 import com.example.urbanmobility.service.AccountService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,7 +16,8 @@ public class AccountController {
     }
 
     @PostMapping
-    public Account saveAccount(@RequestBody Account account) {
-        return accountService.createAccount(account);
+    public ResponseEntity<Account> createAccount(@RequestBody Account account) {
+        accountService.createAccount(account);
+        return new ResponseEntity<>(account, HttpStatus.CREATED);
     }
 }
