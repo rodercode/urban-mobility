@@ -1,6 +1,7 @@
 package com.example.urbanmobility.service;
 import com.example.urbanmobility.dto.AccountDto;
 import com.example.urbanmobility.entity.Account;
+import com.example.urbanmobility.exception.InvalidInputException;
 import com.example.urbanmobility.exception.ResourceNotFoundException;
 import com.example.urbanmobility.mapper.AccountDTOMapper;
 import com.example.urbanmobility.repository.AccountRepository;
@@ -39,15 +40,13 @@ public class AccountService {
         // Check if username already exist
         String username = account.getUsername();
         if (accountRepository.findByUsername(username) != null) {
-            throw new IllegalArgumentException("Username already exists");
+            throw new InvalidInputException("Username already exists");
         }
-
         // Check if email already exist
         String email = account.getEmail();
         if (accountRepository.findByEmail(email) != null) {
-            throw new IllegalArgumentException("Email already exists");
+            throw new InvalidInputException("Email already exists");
         }
-
         // Save account to database
         return accountRepository.save(account);
     }

@@ -1,5 +1,6 @@
 package com.example.urbanmobility.service;
 import com.example.urbanmobility.entity.Account;
+import com.example.urbanmobility.exception.InvalidInputException;
 import com.example.urbanmobility.exception.ResourceNotFoundException;
 import com.example.urbanmobility.repository.AccountRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -77,7 +78,7 @@ class AccountServiceUnitTest {
         given(accountRepository.findByUsername(account.getUsername())).willReturn(account);
 
         // Act
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(InvalidInputException.class,
                 () -> accountService.createAccount(account));
         verify(accountRepository, times(1)).findByUsername(account.getUsername());
     }
@@ -88,7 +89,7 @@ class AccountServiceUnitTest {
         given(accountRepository.findByEmail(account.getEmail())).willReturn(account);
 
         // Act
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(InvalidInputException.class,
                 () -> accountService.createAccount(account));
         verify(accountRepository, times(1)).findByEmail(account.getEmail());
     }
