@@ -1,4 +1,4 @@
-package com.example.urbanmobility.entity;
+package com.example.urbanmobility.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

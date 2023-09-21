@@ -1,5 +1,5 @@
 package com.example.urbanmobility.handler;
-import com.example.urbanmobility.entity.ErrorRes;
+import com.example.urbanmobility.model.ErrorRes;
 import com.example.urbanmobility.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
