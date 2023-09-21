@@ -166,4 +166,18 @@ class AccountServiceUnitTest {
         // Assert
         assertThat(updatedAccount).isNotNull();
     }
+
+    @Test
+    public void test(){
+        // Arrange
+        long accountId = account.getId();
+        given(accountRepository.findById(1L)).willReturn(Optional.ofNullable(account));
+        given(accountRepository.save(account)).willReturn(account);
+
+        // Act
+        Account updatedAccount = accountService.updateAccountById(accountId, account);
+
+        // Assert
+        assertThat(updatedAccount).isNotNull();
+    }
 }

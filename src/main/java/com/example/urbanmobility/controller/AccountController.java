@@ -1,4 +1,5 @@
 package com.example.urbanmobility.controller;
+import com.example.urbanmobility.dto.AccountDto;
 import com.example.urbanmobility.entity.Account;
 import com.example.urbanmobility.service.AccountService;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ public class AccountController {
     }
 
     @GetMapping()
-    public List<Account> getAllAccounts() {
+    public List<AccountDto> getAllAccounts() {
         return accountService.getAllAccounts();
     }
 

@@ -1,22 +1,31 @@
 package com.example.urbanmobility.service;
+import com.example.urbanmobility.dto.AccountDto;
 import com.example.urbanmobility.entity.Account;
+import com.example.urbanmobility.mapper.AccountDTOMapper;
 import com.example.urbanmobility.repository.AccountRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AccountService {
     private final AccountRepository accountRepository;
+    private final AccountDTOMapper accountDTOMapper;
 
-    public AccountService(AccountRepository accountRepository) {
+    public AccountService(AccountRepository accountRepository, AccountDTOMapper accountDTOMapper) {
         this.accountRepository = accountRepository;
+        this.accountDTOMapper = accountDTOMapper;
     }
 
-    public List<Account> getAllAccounts() {
-        return accountRepository.findAll();
+    public List<AccountDto> getAllAccounts() {
+        return accountRepository.findAll()
+                .stream()
+                .map(accountDTOMapper)
+                .collect(Collectors.toList());
+
     }
     public Account createAccount(Account account) {
         // Check if username already exist
