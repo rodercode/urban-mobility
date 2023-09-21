@@ -34,8 +34,6 @@ public class AccountService {
     }
 
 
-
-
     public Account createAccount(Account account) {
         // Check if username already exist
         String username = account.getUsername();
@@ -67,12 +65,12 @@ public class AccountService {
 
         // Change account information
         fetchedAccount.setUsername(account.getUsername());
+        fetchedAccount.setRole(account.getRole());
         fetchedAccount.setEmail(account.getEmail());
         fetchedAccount.setPhone(account.getPhone());
         fetchedAccount.setPaymentMethod(account.getPaymentMethod());
         fetchedAccount.setPaymentHistory(account.getPaymentHistory());
         fetchedAccount.setPaymentSet(account.isPaymentSet());
-        fetchedAccount.setRole(account.getRole());
 
         // Save changes to database
         return accountRepository.save(fetchedAccount);

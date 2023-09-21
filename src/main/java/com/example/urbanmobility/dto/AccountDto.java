@@ -6,5 +6,4 @@ public record AccountDto(
         String email,
         String phone
 ) {
-
 }
