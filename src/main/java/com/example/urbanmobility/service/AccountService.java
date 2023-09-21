@@ -20,6 +20,11 @@ public class AccountService {
         this.accountDTOMapper = accountDTOMapper;
     }
 
+    public Optional<AccountDto> getAccountById(long accountId) {
+        return accountRepository.findById(accountId)
+                .map(accountDTOMapper);
+    }
+
     public List<AccountDto> getAllAccounts() {
         return accountRepository.findAll()
                 .stream()
@@ -27,6 +32,10 @@ public class AccountService {
                 .collect(Collectors.toList());
 
     }
+
+
+
+
     public Account createAccount(Account account) {
         // Check if username already exist
         String username = account.getUsername();
@@ -36,7 +45,7 @@ public class AccountService {
 
         // Check if email already exist
         String email = account.getEmail();
-        if(accountRepository.findByEmail(email) != null){
+        if (accountRepository.findByEmail(email) != null) {
             throw new IllegalArgumentException("Email already exists");
         }
 
@@ -45,7 +54,7 @@ public class AccountService {
     }
 
     public void deleteAccountById(long accountId) {
-        if (!accountRepository.existsById(accountId)){
+        if (!accountRepository.existsById(accountId)) {
             throw new EntityNotFoundException("Account with" + accountId + "does not exist");
         }
         accountRepository.deleteById(accountId);
@@ -69,3 +78,4 @@ public class AccountService {
         return accountRepository.save(fetchedAccount);
     }
 }
+

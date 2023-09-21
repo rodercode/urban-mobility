@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/account")
@@ -16,6 +17,11 @@ public class AccountController {
 
     public AccountController(AccountService accountService) {
         this.accountService = accountService;
+    }
+
+    @GetMapping("/{accountId}")
+    public Optional<AccountDto> getAccountById(@PathVariable("accountId") long accountId) {
+        return accountService.getAccountById(accountId);
     }
 
     @GetMapping()
