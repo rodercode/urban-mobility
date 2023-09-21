@@ -1,5 +1,6 @@
 package com.example.urbanmobility.service;
 import com.example.urbanmobility.entity.Account;
+import com.example.urbanmobility.exception.ResourceNotFoundException;
 import com.example.urbanmobility.repository.AccountRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.assertj.core.api.Assertions;
@@ -126,7 +127,7 @@ class AccountServiceUnitTest {
         given(accountRepository.existsById(accountId)).willReturn(false);
 
         // Act
-        assertThrows(EntityNotFoundException.class,
+        assertThrows(ResourceNotFoundException.class,
                 () -> accountService.deleteAccountById(accountId));
     }
 

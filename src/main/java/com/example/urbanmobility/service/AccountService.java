@@ -53,9 +53,8 @@ public class AccountService {
     }
 
     public void deleteAccountById(long accountId) {
-        if (!accountRepository.existsById(accountId)) {
-            throw new EntityNotFoundException("Account with" + accountId + "does not exist");
-//            throw new ResourceNotFoundException("Account with ID" + " " + accountId + " " + "does not exist");
+        if(!accountRepository.existsById(accountId)){
+            throw new ResourceNotFoundException("Account with ID" + " " + accountId + " " + "does not exist");
         }
         accountRepository.deleteById(accountId);
     }
