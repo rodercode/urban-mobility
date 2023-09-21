@@ -1,11 +1,9 @@
 package com.example.urbanmobility.entity;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.context.annotation.Primary;
-
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 @Builder
 @AllArgsConstructor
 @Entity(name = "account")
