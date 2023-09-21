@@ -10,7 +10,6 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 @ControllerAdvice
 public class ApiRequestExceptionHandler {
-
    @ExceptionHandler
     public ResponseEntity<ErrorRes> handleException(ResourceNotFoundException e){
         ErrorRes error = new ErrorRes(

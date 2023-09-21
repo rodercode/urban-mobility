@@ -6,6 +6,7 @@ import com.example.urbanmobility.exception.ResourceNotFoundException;
 import com.example.urbanmobility.mapper.AccountDTOMapper;
 import com.example.urbanmobility.repository.AccountRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,12 +28,8 @@ public class AccountService {
                 .map(accountDTOMapper);
     }
 
-    public List<AccountDto> getAllAccounts() {
-        return accountRepository.findAll()
-                .stream()
-                .map(accountDTOMapper)
-                .collect(Collectors.toList());
-
+    public List<Account> getAllAccounts() {
+        return accountRepository.findAll();
     }
 
 
@@ -59,21 +56,12 @@ public class AccountService {
     }
 
     public Account updateAccountById(Long accountId, Account account) {
-        // Throw exception if account does not exist
-        Account fetchedAccount = accountRepository.findById(accountId).orElseThrow(
-                () -> new EntityNotFoundException("Account with" + accountId + "does not exist"));
+        if (!accountRepository.existsById(accountId)){
+            throw new ResourceNotFoundException("Account with ID" + " " + accountId + " " + "does not exist");
+        }
 
-        // Change account information
-        fetchedAccount.setUsername(account.getUsername());
-        fetchedAccount.setRole(account.getRole());
-        fetchedAccount.setEmail(account.getEmail());
-        fetchedAccount.setPhone(account.getPhone());
-        fetchedAccount.setPaymentMethod(account.getPaymentMethod());
-        fetchedAccount.setPaymentHistory(account.getPaymentHistory());
-        fetchedAccount.setPaymentSet(account.isPaymentSet());
-
-        // Save changes to database
-        return accountRepository.save(fetchedAccount);
+        account.setId(accountId);
+        return accountRepository.save(account);
     }
 }
 

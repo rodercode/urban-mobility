@@ -3,17 +3,13 @@ import com.example.urbanmobility.entity.Account;
 import com.example.urbanmobility.exception.InvalidInputException;
 import com.example.urbanmobility.exception.ResourceNotFoundException;
 import com.example.urbanmobility.repository.AccountRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -146,34 +142,20 @@ class AccountServiceUnitTest {
     */
 
     @Test
-    public void ShouldThrowException_WhenEnterInvalidId(){
+    public void ShouldThrowException_IsInvalidId(){
         // Arrange
         long accountId = account.getId();
-        given(accountRepository.findById(accountId)).willReturn(Optional.empty());
+        given(accountRepository.existsById(accountId)).willReturn(false);
         // Act
-        assertThrows(EntityNotFoundException.class,
+        assertThrows(ResourceNotFoundException.class,
                 () -> accountService.updateAccountById(accountId, account));
     }
 
     @Test
-    public void ShouldNotReturnNull_WhenUpdateAccount(){
+    public void ShouldNotReturnNull_WhenUpdatedWasSuccessful(){
         // Arrange
         long accountId = account.getId();
-        given(accountRepository.findById(1L)).willReturn(Optional.ofNullable(account));
-        given(accountRepository.save(account)).willReturn(account);
-
-        // Act
-        Account updatedAccount = accountService.updateAccountById(accountId, account);
-
-        // Assert
-        assertThat(updatedAccount).isNotNull();
-    }
-
-    @Test
-    public void test(){
-        // Arrange
-        long accountId = account.getId();
-        given(accountRepository.findById(1L)).willReturn(Optional.ofNullable(account));
+        given(accountRepository.existsById(accountId)).willReturn(true);
         given(accountRepository.save(account)).willReturn(account);
 
         // Act

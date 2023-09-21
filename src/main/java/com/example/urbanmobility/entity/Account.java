@@ -15,7 +15,7 @@ public class Account {
     @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private String role;
 
     @Column(nullable = false, unique = true)
@@ -32,4 +32,5 @@ public class Account {
 
     @Column(nullable = false)
     private boolean isPaymentSet;
+
 }
