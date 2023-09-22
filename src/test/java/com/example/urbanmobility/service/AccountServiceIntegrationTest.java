@@ -1,15 +1,15 @@
 package com.example.urbanmobility.service;
 import com.example.urbanmobility.entity.Account;
 import com.example.urbanmobility.repository.AccountRepository;
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import static org.assertj.core.api.Assertions.assertThat;
+
 @SpringBootTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class AccountServiceIntegrationTest {
 
     @Autowired
@@ -22,7 +22,6 @@ public class AccountServiceIntegrationTest {
     private Account account;
     private Account inputAccount;
     private final long accountId = 1L;
-
 
     @BeforeEach
     public void setup(){
@@ -50,12 +49,6 @@ public class AccountServiceIntegrationTest {
                 .isPaymentSet(true)
                 .build();
     }
-
-    @AfterEach
-    public void tearDown(){
-        accountRepository.deleteAll();
-    }
-
     /*
     Class: AccountService
     Method: createAccount
@@ -95,7 +88,7 @@ public class AccountServiceIntegrationTest {
         accountRepository.save(account);
 
         // Act
-        accountService.deleteAccountById(account.getId());
+        accountService.deleteAccountById(1L);
 
         // Assert
         assertThat(accountRepository.findAll().size()).isEqualTo(0);
