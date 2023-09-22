@@ -72,6 +72,21 @@ class AccountControllerEndToEndTest {
 
     }
 
+    @Test
+    @DisplayName("check if post endpoint return status code 409")
+    public void ShouldReturnConflictStatusCode () throws Exception {
+        // Arrange
+        accountRepository.save(account);
+
+        // Act
+        mvc.perform(MockMvcRequestBuilders
+                        .post("/api/account")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonAccount)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isConflict());
+    }
+
 
 
 
