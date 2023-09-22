@@ -27,6 +27,7 @@ class AccountServiceUnitTest {
     private AccountService accountService;
 
     private Account account;
+    private Account inputAccount;
 
     @BeforeEach
     public void setup(){
@@ -38,6 +39,17 @@ class AccountServiceUnitTest {
                 .phone("08123456789")
                 .paymentHistory(0)
                 .paymentMethod("1234-5678-9012-3456")
+                .isPaymentSet(true)
+                .build();
+
+        inputAccount = Account.builder()
+                .id(1L)
+                .username("Lisa")
+                .role("User")
+                .email("Lisa@example.com")
+                .phone("08123456789")
+                .paymentHistory(0)
+                .paymentMethod("swish")
                 .isPaymentSet(true)
                 .build();
     }
@@ -163,5 +175,22 @@ class AccountServiceUnitTest {
 
         // Assert
         assertThat(updatedAccount).isNotNull();
+    }
+
+    @Test
+    public void ShouldReturnInputBackAfterUpdated(){
+        // Arrange
+        long accountId = account.getId();
+        given(accountRepository.existsById(accountId)).willReturn(true);
+        given(accountRepository.save(inputAccount)).willReturn(inputAccount);
+
+        // Act
+        Account updatedAccount = accountService.updateAccountById(accountId, inputAccount);
+
+        // Assert
+        assertThat(updatedAccount.getUsername()).isEqualTo(inputAccount.getUsername());
+        assertThat(updatedAccount.getId()).isEqualTo(inputAccount.getId());
+        assertThat(updatedAccount.getEmail()).isEqualTo(inputAccount.getEmail());
+
     }
 }
