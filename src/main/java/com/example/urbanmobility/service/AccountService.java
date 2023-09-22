@@ -1,9 +1,7 @@
 package com.example.urbanmobility.service;
-import com.example.urbanmobility.dto.AccountDto;
 import com.example.urbanmobility.entity.Account;
 import com.example.urbanmobility.exception.InvalidInputException;
 import com.example.urbanmobility.exception.ResourceNotFoundException;
-import com.example.urbanmobility.mapper.AccountDTOMapper;
 import com.example.urbanmobility.repository.AccountRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -13,13 +11,12 @@ import java.util.Optional;
 public class AccountService {
     private final AccountRepository accountRepository;
 
-    public AccountService(AccountRepository accountRepository, AccountDTOMapper accountDTOMapper) {
+    public AccountService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
-        this.accountDTOMapper = accountDTOMapper;
     }
 
     public Optional<Account> getAccountById(long accountId) {
-        if (accountRepository.existsById(accountId)){
+        if (!accountRepository.existsById(accountId)){
             throw new ResourceNotFoundException("Account with ID" + " " + accountId + " " + "does not exist");
         }
         return accountRepository.findById(accountId);
