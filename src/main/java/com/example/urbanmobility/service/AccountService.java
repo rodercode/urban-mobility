@@ -24,11 +24,17 @@ public class AccountService {
     }
 
     public Optional<AccountDto> getAccountById(long accountId) {
+        if (accountRepository.existsById(accountId)){
+            throw new ResourceNotFoundException("Account with ID" + " " + accountId + " " + "does not exist");
+        }
         return accountRepository.findById(accountId)
                 .map(accountDTOMapper);
     }
 
     public List<Account> getAllAccounts() {
+        if(accountRepository.findAll().isEmpty()){
+            throw new ResourceNotFoundException("No account found");
+        }
         return accountRepository.findAll();
     }
 
