@@ -37,12 +37,12 @@ class AccountControllerEndToEndTest {
     @Autowired
     private AccountRepository accountRepository;
 
-    // Variable
     private Account account;
     private String jsonAccount;
 
     @BeforeEach
     public void setup() throws JsonProcessingException {
+        // Variable
         account = Account.builder()
                 .username("Roder")
                 .role("User")
@@ -53,14 +53,13 @@ class AccountControllerEndToEndTest {
                 .isPaymentSet(true)
                 .build();
 
-        accountRepository.save(account);
         ObjectMapper mapper = new ObjectMapper();
         jsonAccount = mapper.writeValueAsString(account);
     }
 
     @Test
-    @DisplayName("Test POST end point -> /api/account")
-    public void CheckEndPoint_OfCreateAccount() throws Exception {
+    @DisplayName("check if post endpoint return status code 201 and account object")
+    public void ShouldReturnCreateStatusCode_AndReturnAccount() throws Exception {
         mvc.perform(MockMvcRequestBuilders
                 .post("/api/account")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -73,12 +72,30 @@ class AccountControllerEndToEndTest {
 
     }
 
+
+
+
+
     @Test
-    @DisplayName("Test Delete end point -> /api/delete/{id}")
-    public void createAccountAPI() throws Exception {
+    @DisplayName("Test Delete end point -> /api/delete/{accountId}")
+    public void deleteAccountAPI() throws Exception {
         mvc.perform(MockMvcRequestBuilders
-                        .delete("/api/account/{id}", 1L))
+                        .delete("/api/account/{accountId}", 1L))
                         .andExpect(status().isOk())
                         .andExpect(content().string("Account was deleted successfully"));
+    }
+
+    @Test
+    @DisplayName("Test Update end point -> /api/account/{accountId}")
+    public void updateAccountApi() throws Exception {
+        mvc.perform(MockMvcRequestBuilders
+                        .put("/api/account/{accountId}", 1L)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonAccount)
+                        .accept(MediaType.APPLICATION_JSON))
+                        .andExpect(status().isOk())
+                        .andExpect(jsonPath("$.id", Matchers.is(1)))
+                        .andExpect(jsonPath("$.username", Matchers.is("Roder")))
+                        .andExpect(jsonPath("$.email", Matchers.is("Roder@example.com")));
     }
 }
