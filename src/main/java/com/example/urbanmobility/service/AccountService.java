@@ -12,19 +12,17 @@ import java.util.Optional;
 @Service
 public class AccountService {
     private final AccountRepository accountRepository;
-    private final AccountDTOMapper accountDTOMapper;
 
     public AccountService(AccountRepository accountRepository, AccountDTOMapper accountDTOMapper) {
         this.accountRepository = accountRepository;
         this.accountDTOMapper = accountDTOMapper;
     }
 
-    public Optional<AccountDto> getAccountById(long accountId) {
+    public Optional<Account> getAccountById(long accountId) {
         if (accountRepository.existsById(accountId)){
             throw new ResourceNotFoundException("Account with ID" + " " + accountId + " " + "does not exist");
         }
-        return accountRepository.findById(accountId)
-                .map(accountDTOMapper);
+        return accountRepository.findById(accountId);
     }
 
     public List<Account> getAllAccounts() {
