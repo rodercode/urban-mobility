@@ -42,6 +42,7 @@ class AccountControllerEndToEndTest {
 
     @BeforeEach
     public void setup() throws JsonProcessingException {
+
         // Variable
         account = Account.builder()
                 .username("Roder")
@@ -57,9 +58,14 @@ class AccountControllerEndToEndTest {
         jsonAccount = mapper.writeValueAsString(account);
     }
 
+    @AfterEach
+    public void cleanUp(){
+        accountRepository.deleteAll();
+    }
+
     @Test
     @DisplayName("check if post endpoint return status code 201 and account object")
-    public void ShouldReturnCreateStatusCode_AndReturnAccount() throws Exception {
+    public void PostEndPoint_ShouldReturnCreateStatusCode_AndReturnCreatedAccount() throws Exception {
         mvc.perform(MockMvcRequestBuilders
                 .post("/api/account")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -74,7 +80,7 @@ class AccountControllerEndToEndTest {
 
     @Test
     @DisplayName("check if post endpoint return status code 409")
-    public void ShouldReturnConflictStatusCode () throws Exception {
+    public void PostEndPoint_ShouldReturnConflictStatusCode () throws Exception {
         // Arrange
         accountRepository.save(account);
 
@@ -87,13 +93,13 @@ class AccountControllerEndToEndTest {
                 .andExpect(status().isConflict());
     }
 
-
-
-
-
     @Test
-    @DisplayName("Test Delete end point -> /api/delete/{accountId}")
-    public void deleteAccountAPI() throws Exception {
+    @DisplayName("Check if delete endpoint return status code 200 and string message")
+    public void DeleteEndpoint_ShouldReturnOkStatusCode_AndStringMessage() throws Exception {
+        // Arrange
+        accountRepository.save(account);
+
+        // Act
         mvc.perform(MockMvcRequestBuilders
                         .delete("/api/account/{accountId}", 1L))
                         .andExpect(status().isOk())
@@ -101,8 +107,20 @@ class AccountControllerEndToEndTest {
     }
 
     @Test
+    @DisplayName("Check if delete endpoint return status code 409")
+    public void DeleteEndPoint_ShouldReturnNotFoundStatusCode() throws Exception {
+        mvc.perform(MockMvcRequestBuilders
+                        .delete("/api/account/{accountId}", 1L))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
     @DisplayName("Test Update end point -> /api/account/{accountId}")
-    public void updateAccountApi() throws Exception {
+    public void PutEndpoint_ShouldReturnOkStatusCode_AndUpdatedAccount() throws Exception {
+        // Arrange
+        accountRepository.save(account);
+
+        // Act
         mvc.perform(MockMvcRequestBuilders
                         .put("/api/account/{accountId}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -112,5 +130,17 @@ class AccountControllerEndToEndTest {
                         .andExpect(jsonPath("$.id", Matchers.is(1)))
                         .andExpect(jsonPath("$.username", Matchers.is("Roder")))
                         .andExpect(jsonPath("$.email", Matchers.is("Roder@example.com")));
+    }
+
+    @Test
+    @DisplayName("Test Update end point -> /api/account/{accountId}")
+    public void PutEndPoint_ShouldReturnNotFoundStatusCode() throws Exception {
+        mvc.perform(MockMvcRequestBuilders
+                        .put("/api/account/{accountId}", 1L)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonAccount)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+
     }
 }

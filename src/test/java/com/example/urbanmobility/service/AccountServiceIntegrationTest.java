@@ -1,6 +1,7 @@
 package com.example.urbanmobility.service;
 import com.example.urbanmobility.entity.Account;
 import com.example.urbanmobility.repository.AccountRepository;
+import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,13 +21,14 @@ public class AccountServiceIntegrationTest {
     // Variables
     private Account account;
     private Account inputAccount;
+    private final long accountId = 1L;
 
-    @DisplayName("Set up account data for each test")
+
     @BeforeEach
     public void setup(){
         // Previous object
         account = Account.builder()
-                .id(1L)
+                .id(accountId)
                 .username("Roder")
                 .role("User")
                 .email("Roder@example.com")
@@ -38,7 +40,7 @@ public class AccountServiceIntegrationTest {
 
         // New Object
         inputAccount = Account.builder()
-                .id(1L)
+                .id(accountId)
                 .username("Lisa")
                 .role("User")
                 .email("Lisa@example.com")
@@ -50,7 +52,7 @@ public class AccountServiceIntegrationTest {
     }
 
     @AfterEach
-    void cleanUp(){
+    public void tearDown(){
         accountRepository.deleteAll();
     }
 
@@ -91,10 +93,9 @@ public class AccountServiceIntegrationTest {
     public void ShouldBeEmpty_AfterDeleteAccountById(){
         // Arrange
         accountRepository.save(account);
-        long accountId = account.getId();
 
         // Act
-        accountService.deleteAccountById(accountId);
+        accountService.deleteAccountById(account.getId());
 
         // Assert
         assertThat(accountRepository.findAll().size()).isEqualTo(0);
