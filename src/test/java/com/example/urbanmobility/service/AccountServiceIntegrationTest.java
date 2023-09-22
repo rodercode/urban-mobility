@@ -19,10 +19,12 @@ public class AccountServiceIntegrationTest {
 
     // Variables
     private Account account;
+    private Account inputAccount;
 
     @DisplayName("Set up account data for each test")
     @BeforeEach
     public void setup(){
+        // Previous object
         account = Account.builder()
                 .id(1L)
                 .username("Roder")
@@ -33,6 +35,23 @@ public class AccountServiceIntegrationTest {
                 .paymentMethod("swish")
                 .isPaymentSet(true)
                 .build();
+
+        // New Object
+        inputAccount = Account.builder()
+                .id(1L)
+                .username("Lisa")
+                .role("User")
+                .email("Lisa@example.com")
+                .phone("08123456789")
+                .paymentHistory(0)
+                .paymentMethod("swish")
+                .isPaymentSet(true)
+                .build();
+    }
+
+    @AfterEach
+    void cleanUp(){
+        accountRepository.deleteAll();
     }
 
     /*
@@ -79,5 +98,33 @@ public class AccountServiceIntegrationTest {
 
         // Assert
         assertThat(accountRepository.findAll().size()).isEqualTo(0);
+    }
+
+    /*
+    Class: AccountService
+    Method: updateAccount
+    Type of test: Integration test
+
+    Description: System should provide a way for a user to update their own account.
+
+    requirements
+    1. Account in database should be updated after update account by id
+    */
+
+    @Test
+    public void ShouldChangeFetchAccount_WhenUpdated(){
+        // Arrange
+        long accountId = account.getId();
+        accountRepository.save(account);
+        Account fetchAccount = accountRepository.findById(account.getId()).get();
+
+        // Act
+        accountService.updateAccountById(accountId, inputAccount);
+        Account fetchUpdated = accountRepository.findById(accountId).get();
+
+        // Assert
+        assertThat(fetchUpdated.getId()).isEqualTo(fetchAccount.getId());
+        assertThat(fetchUpdated.getUsername()).isNotEqualTo(fetchAccount.getUsername());
+        assertThat(fetchUpdated.getEmail()).isNotEqualTo(fetchAccount.getEmail());
     }
 }

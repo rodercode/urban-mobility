@@ -5,13 +5,9 @@ import com.example.urbanmobility.exception.InvalidInputException;
 import com.example.urbanmobility.exception.ResourceNotFoundException;
 import com.example.urbanmobility.mapper.AccountDTOMapper;
 import com.example.urbanmobility.repository.AccountRepository;
-import jakarta.persistence.EntityNotFoundException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class AccountService {
@@ -32,13 +28,13 @@ public class AccountService {
         return accountRepository.findAll();
     }
 
-
     public Account createAccount(Account account) {
         // Check if username already exist
         String username = account.getUsername();
         if (accountRepository.findByUsername(username) != null) {
             throw new InvalidInputException("Username already exists");
         }
+
         // Check if email already exist
         String email = account.getEmail();
         if (accountRepository.findByEmail(email) != null) {
@@ -59,7 +55,6 @@ public class AccountService {
         if (!accountRepository.existsById(accountId)){
             throw new ResourceNotFoundException("Account with ID" + " " + accountId + " " + "does not exist");
         }
-
         account.setId(accountId);
         return accountRepository.save(account);
     }
