@@ -1,6 +1,6 @@
 package com.example.urbanmobility.controller;
-import com.example.urbanmobility.entity.Account;
-import com.example.urbanmobility.repository.AccountRepository;
+import com.example.urbanmobility.account.Account;
+import com.example.urbanmobility.account.AccountRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;

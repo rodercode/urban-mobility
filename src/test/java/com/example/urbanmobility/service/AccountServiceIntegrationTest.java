@@ -1,6 +1,7 @@
 package com.example.urbanmobility.service;
-import com.example.urbanmobility.entity.Account;
-import com.example.urbanmobility.repository.AccountRepository;
+import com.example.urbanmobility.account.Account;
+import com.example.urbanmobility.account.AccountRepository;
+import com.example.urbanmobility.account.AccountService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

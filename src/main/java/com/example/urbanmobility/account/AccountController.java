@@ -1,7 +1,4 @@
-package com.example.urbanmobility.controller;
-import com.example.urbanmobility.dto.AccountDto;
-import com.example.urbanmobility.entity.Account;
-import com.example.urbanmobility.service.AccountService;
+package com.example.urbanmobility.account;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

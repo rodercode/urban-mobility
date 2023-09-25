@@ -1,8 +1,9 @@
 package com.example.urbanmobility.service;
-import com.example.urbanmobility.entity.Account;
+import com.example.urbanmobility.account.Account;
+import com.example.urbanmobility.account.AccountService;
 import com.example.urbanmobility.exception.InvalidInputException;
 import com.example.urbanmobility.exception.ResourceNotFoundException;
-import com.example.urbanmobility.repository.AccountRepository;
+import com.example.urbanmobility.account.AccountRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

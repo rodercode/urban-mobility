@@ -1,6 +1,11 @@
-package com.example.urbanmobility.entity;
+package com.example.urbanmobility.account;
+//import com.example.urbanmobility.entity.Order;
+import com.example.urbanmobility.route.Route;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -33,4 +38,13 @@ public class Account {
     @Column(nullable = false)
     private boolean isPaymentSet;
 
+    @OneToMany(targetEntity = Route.class,cascade = CascadeType.ALL)
+    @JoinColumn(name ="account_id",referencedColumnName = "id")
+    private List<Route> routes;
+
+
+//    @OneToMany(targetEntity = Order.class,cascade = CascadeType.ALL)
+//    @JoinColumn(name ="account_id",referencedColumnName = "id")
+//    @Column(name="order",nullable = false)
+//    private List<Order> orders;
 }
