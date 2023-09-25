@@ -1,6 +1,6 @@
-package com.example.urbanmobility.repository;
+package com.example.urbanmobility.account;
 
-import com.example.urbanmobility.entity.Account;
+import com.example.urbanmobility.account.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

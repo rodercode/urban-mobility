@@ -1,8 +1,8 @@
-package com.example.urbanmobility.service;
-import com.example.urbanmobility.entity.Account;
+package com.example.urbanmobility.account;
+import com.example.urbanmobility.account.Account;
 import com.example.urbanmobility.exception.InvalidInputException;
 import com.example.urbanmobility.exception.ResourceNotFoundException;
-import com.example.urbanmobility.repository.AccountRepository;
+import com.example.urbanmobility.account.AccountRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
