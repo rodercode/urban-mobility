@@ -1,9 +1,11 @@
 package com.example.urbanmobility.auth;
-
 import com.example.urbanmobility.account.Account;
 import com.example.urbanmobility.account.AccountService;
 import com.example.urbanmobility.exception.InvalidInputException;
+import com.example.urbanmobility.exception.InvalidPermissionException;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AuthService {
 
     private AccountService accountService;
@@ -12,13 +14,11 @@ public class AuthService {
         this.accountService = accountService;
     }
 
-
-    public String validSupplier(long accountId) {
+    public void validSupplier(long accountId) {
         Account supplier = accountService.getAccountById(accountId).get();
         if (!supplier.getRole().equals("supplier")) {
-            throw new InvalidInputException("You are not a supplier!");
+            throw new InvalidPermissionException("You are not a supplier!");
         }
-        return "You are a supplier!";
     }
 }
 

@@ -24,16 +24,17 @@ public class TransportController {
         return routeService.getAllRoutes();
     }
 
-    @PostMapping
-    public Transport createRoute(@RequestBody Transport route){
-        return routeService.createRoute(route);
+    @PostMapping("account/{accountId}")
+    public Transport createRoute(@RequestBody Transport route, @PathVariable("accountId") long accountId){
+        return routeService.createRoute(route,accountId);
     }
 
-    @PutMapping("/{transportId}")
+    @PutMapping("/{transportId}/account/{accountId}")
     public Transport updateRoute(
             @PathVariable("transportId") long transportId,
+            @PathVariable("accountId") long accountId,
             @RequestBody Transport transport
     ){
-        return routeService.updateRouteById(transportId, transport);
+        return routeService.updateRouteById(transportId, transport,accountId);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.urbanmobility.service;
+package com.example.urbanmobility.account;
 import com.example.urbanmobility.account.Account;
 import com.example.urbanmobility.account.AccountService;
 import com.example.urbanmobility.exception.InvalidInputException;

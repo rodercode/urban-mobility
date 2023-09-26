@@ -1,5 +1,6 @@
 package com.example.urbanmobility.handler;
 import com.example.urbanmobility.exception.InvalidInputException;
+import com.example.urbanmobility.exception.InvalidPermissionException;
 import com.example.urbanmobility.model.ErrorRes;
 import com.example.urbanmobility.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,16 @@ public class ApiRequestExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<ErrorRes> handleException(InvalidInputException e){
+        ErrorRes error = new ErrorRes(
+                HttpStatus.CONFLICT.value(),
+                e.getMessage(),
+                ZonedDateTime.now(ZoneId.of("Z"))
+        );
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorRes> handleException(InvalidPermissionException e){
         ErrorRes error = new ErrorRes(
                 HttpStatus.CONFLICT.value(),
                 e.getMessage(),
