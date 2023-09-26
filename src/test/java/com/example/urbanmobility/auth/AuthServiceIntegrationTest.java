@@ -4,6 +4,7 @@ import com.example.urbanmobility.account.AccountRepository;
 import com.example.urbanmobility.account.AccountService;
 import com.example.urbanmobility.auth.AuthService;
 import com.example.urbanmobility.exception.InvalidPermissionException;
+import com.example.urbanmobility.exception.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class AuthServiceIntegrationTest {
         account = Account.builder()
                 .id(1L)
                 .username("Roder")
-                .role("supplier")
+                .role("user")
                 .email("Roder@example.com")
                 .phone("08123456789")
                 .paymentHistory(0)
@@ -42,11 +43,33 @@ public class AuthServiceIntegrationTest {
 
     }
     @Test
-    public void test(){
+    public void ShouldThrowException_IfAccountIsNotASupplier(){
         // Arrange
+        accountService.createAccount(account);
+        account.setRole("user");
+        // Act
+        assertThrows(InvalidPermissionException.class,
+                () -> authService.validSupplier(account.getId()));
+    }
+
+    @Test
+    public void ShouldThrowException_IfAccountIdDoesNotExist(){
+        // Arrange
+        account.setRole("user");
+        // Act
+        assertThrows(ResourceNotFoundException.class,
+                () -> authService.validSupplier(account.getId()));
+    }
+
+    @Test
+    public void ShouldReturnValidSupplier_IfAccountIsASupplier(){
+        // Arrange
+        account.setRole("supplier");
         accountService.createAccount(account);
 
         // Act
-        authService.validSupplier(account.getId());
+        String result = authService.validSupplier(account.getId());
+        // Assert
+        assertThat(result).isEqualTo("You are a supplier!");
     }
 }
