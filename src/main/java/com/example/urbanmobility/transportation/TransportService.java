@@ -3,8 +3,13 @@ import com.example.urbanmobility.account.Account;
 import com.example.urbanmobility.account.AccountService;
 import com.example.urbanmobility.auth.AuthService;
 import com.example.urbanmobility.exception.InvalidInputException;
+import org.apache.commons.lang3.ObjectUtils;
+import org.hibernate.PropertyValueException;
+import org.springframework.lang.NonNullFields;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class TransportService {
@@ -20,10 +25,6 @@ public class TransportService {
 
     public Transport createTransport(Transport transport, long accountId){
         authService.validSupplier(accountId);
-        if(transport == null){
-            throw new InvalidInputException("Route cannot be null!");
-        }
-
         return transportRepository.save(transport);
     }
 
