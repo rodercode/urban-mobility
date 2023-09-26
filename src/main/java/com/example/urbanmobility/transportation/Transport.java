@@ -1,10 +1,8 @@
-package com.example.urbanmobility.route;
+package com.example.urbanmobility.transportation;
 import com.example.urbanmobility.account.Account;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,11 +10,11 @@ import java.util.List;
 @Getter
 @Builder
 @Entity(name = "routes")
-public class Route {
+
+public class Transport {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-
     private String departure;
     private String arrival;
     private String transportType;

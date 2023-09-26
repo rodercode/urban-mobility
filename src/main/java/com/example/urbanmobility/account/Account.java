@@ -1,6 +1,6 @@
 package com.example.urbanmobility.account;
 //import com.example.urbanmobility.entity.Order;
-import com.example.urbanmobility.route.Route;
+import com.example.urbanmobility.transportation.Transport;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -38,9 +38,9 @@ public class Account {
     @Column(nullable = false)
     private boolean isPaymentSet;
 
-    @OneToMany(targetEntity = Route.class,cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Transport.class,cascade = CascadeType.ALL)
     @JoinColumn(name ="account_id",referencedColumnName = "id")
-    private List<Route> routes;
+    private List<Transport> routes;
 
 
 //    @OneToMany(targetEntity = Order.class,cascade = CascadeType.ALL)

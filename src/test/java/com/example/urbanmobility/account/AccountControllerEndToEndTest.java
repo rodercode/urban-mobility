@@ -1,4 +1,4 @@
-package com.example.urbanmobility.controller;
+package com.example.urbanmobility.account;
 import com.example.urbanmobility.account.Account;
 import com.example.urbanmobility.account.AccountRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -46,11 +46,6 @@ class AccountControllerEndToEndTest {
 
         ObjectMapper mapper = new ObjectMapper();
         jsonAccount = mapper.writeValueAsString(account);
-    }
-
-    @AfterEach
-    public void cleanUp(){
-        accountRepository.deleteAll();
     }
 
     @Test
