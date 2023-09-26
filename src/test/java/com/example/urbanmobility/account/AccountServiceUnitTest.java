@@ -47,7 +47,7 @@ class AccountServiceUnitTest {
         inputAccount = Account.builder()
                 .id(1L)
                 .username("Lisa")
-                .role("supplier")
+                .role("User")
                 .email("Lisa@example.com")
                 .phone("0812345678")
                 .paymentHistory(0)
@@ -87,7 +87,7 @@ class AccountServiceUnitTest {
         // Arrange
         given(accountRepository.findByUsername(account.getUsername())).willReturn(account);
 
-        // Act
+        // Act and Assert
         assertThrows(InvalidInputException.class,
                 () -> accountService.createAccount(account));
         verify(accountRepository, times(1)).findByUsername(account.getUsername());
@@ -98,7 +98,7 @@ class AccountServiceUnitTest {
         // Arrange
         given(accountRepository.findByEmail(account.getEmail())).willReturn(account);
 
-        // Act
+        // Act and Assert
         assertThrows(InvalidInputException.class,
                 () -> accountService.createAccount(account));
         verify(accountRepository, times(1)).findByEmail(account.getEmail());
@@ -106,7 +106,10 @@ class AccountServiceUnitTest {
 
     @Test
     public void ShouldThrowException_WhenPhoneNumberNotContainsOnlyDigits(){
+        // Arrange
         account.setPhone("gaglh45274214hg");
+
+        // Act and Assert
         assertThrows(InvalidInputException.class,
                 () -> accountService.createAccount(account));
     }
@@ -133,7 +136,7 @@ class AccountServiceUnitTest {
         given(accountRepository.existsById(accountId)).willReturn(true);
         willDoNothing().given(accountRepository).deleteById(accountId);
 
-        // Act
+        // Act and Assert
         accountService.deleteAccountById(accountId);
 
         verify(accountRepository, times(1)).deleteById(accountId);
@@ -146,7 +149,7 @@ class AccountServiceUnitTest {
         long accountId = 2L;
         given(accountRepository.existsById(accountId)).willReturn(false);
 
-        // Act
+        // Act and Assert
         assertThrows(ResourceNotFoundException.class,
                 () -> accountService.deleteAccountById(accountId));
         verify(accountRepository, never()).deleteById(accountId);
@@ -169,8 +172,8 @@ class AccountServiceUnitTest {
     public void ShouldThrowException_IsInvalidId(){
         // Arrange
         long accountId = account.getId();
-        given(accountRepository.existsById(accountId)).willReturn(false);
-        // Act
+        given(accountRepository.findById(accountId)).willReturn(Optional.empty());
+        // Act and Assert
         assertThrows(ResourceNotFoundException.class,
                 () -> accountService.updateAccountById(accountId, account));
     }
@@ -179,7 +182,7 @@ class AccountServiceUnitTest {
     public void ShouldNotReturnNull_WhenUpdatedWasSuccessful(){
         // Arrange
         long accountId = account.getId();
-        given(accountRepository.existsById(accountId)).willReturn(true);
+        given(accountRepository.findById(accountId)).willReturn(Optional.ofNullable(account));
         given(accountRepository.save(account)).willReturn(account);
 
         // Act
@@ -193,7 +196,7 @@ class AccountServiceUnitTest {
     public void ShouldReturnInputBackAfterUpdated(){
         // Arrange
         long accountId = account.getId();
-        given(accountRepository.existsById(accountId)).willReturn(true);
+        given(accountRepository.findById(accountId)).willReturn(Optional.ofNullable(account));
         given(accountRepository.save(inputAccount)).willReturn(inputAccount);
 
         // Act
@@ -206,12 +209,15 @@ class AccountServiceUnitTest {
     }
 
     @Test
-    public void test(){
+    public void ShouldThrowException_WhenUserChangeTheirRole(){
+        // Arrange
         long accountId = account.getId();
         given(accountRepository.findById(accountId)).willReturn(Optional.ofNullable(account));
+        inputAccount.setRole("supplier");
 
-
+        // Act and Assert
         assertThrows(InvalidPermissionException.class,
                 () -> accountService.updateAccountById(accountId,inputAccount));
+
     }
 }
