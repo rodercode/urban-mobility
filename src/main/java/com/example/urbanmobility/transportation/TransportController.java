@@ -29,12 +29,11 @@ public class TransportController {
         return routeService.createRoute(route);
     }
 
-    @PutMapping("/{transportId}/account/{accountId}")
+    @PutMapping("/{transportId}")
     public Transport updateRoute(
             @PathVariable("transportId") long transportId,
-            @PathVariable("accountId") long accountId,
             @RequestBody Transport transport
     ){
-        return routeService.updateRouteById(transportId, accountId, transport);
+        return routeService.updateRouteById(transportId, transport);
     }
 }

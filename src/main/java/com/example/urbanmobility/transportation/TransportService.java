@@ -24,17 +24,25 @@ public class TransportService {
         return transportRepository.findAll();
     }
 
-    // Update supplier by id
+    // Update route
     public Transport updateRouteById(Long id, Transport transport){
         transport.setId(id);
         return transportRepository.save(transport);
     }
 
-    public Transport updateRouteById(long transportId, long accountId, Transport transport) {
+    // Assigne route to user
+    public Transport updateRouteById(long transportId, long accountId) {
         Transport fetchedTransport = transportRepository.findById(transportId).get();
         Account account = accountService.getAccountById(accountId).get();
         fetchedTransport.setAccount(account);
         fetchedTransport.setId(transportId);
-        return transportRepository.save(transport);
+        return transportRepository.save(fetchedTransport);
+    }
+
+    public Transport updateRouteById(long transportId) {
+        Transport fetchedTransport = transportRepository.findById(transportId).get();
+        fetchedTransport.setAccount(null);
+        fetchedTransport.setId(transportId);
+        return transportRepository.save(fetchedTransport);
     }
 }
