@@ -151,6 +151,7 @@ class AccountServiceUnitTest {
         // Act
         assertThrows(ResourceNotFoundException.class,
                 () -> accountService.deleteAccountById(accountId));
+        verify(accountRepository, never()).deleteById(accountId);
     }
 
      /*
