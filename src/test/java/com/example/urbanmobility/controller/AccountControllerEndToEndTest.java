@@ -48,11 +48,6 @@ class AccountControllerEndToEndTest {
         jsonAccount = mapper.writeValueAsString(account);
     }
 
-    @AfterEach
-    public void cleanUp(){
-        accountRepository.deleteAll();
-    }
-
     @Test
     @DisplayName("check if post endpoint return status code 201 and account object")
     public void PostEndPoint_ShouldReturnCreateStatusCode_AndReturnCreatedAccount() throws Exception {

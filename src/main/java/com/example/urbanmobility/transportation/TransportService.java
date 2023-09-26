@@ -6,6 +6,8 @@ import com.example.urbanmobility.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+
 @Service
 public class TransportService {
     private AccountService accountService;
@@ -16,8 +18,10 @@ public class TransportService {
         this.transportRepository = transportRepository;
     }
 
-    public Transport createRoute(Transport route){
-        return transportRepository.save(route);
+
+
+    public Transport createRoute(Transport transport, long accountId){
+        return transportRepository.save(transport);
     }
 
     public List<Transport> getAllRoutes(){
