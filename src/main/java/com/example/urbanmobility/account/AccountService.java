@@ -1,6 +1,7 @@
 package com.example.urbanmobility.account;
 import com.example.urbanmobility.account.Account;
 import com.example.urbanmobility.exception.InvalidInputException;
+import com.example.urbanmobility.exception.InvalidPermissionException;
 import com.example.urbanmobility.exception.ResourceNotFoundException;
 import com.example.urbanmobility.account.AccountRepository;
 import org.springframework.stereotype.Service;
@@ -56,8 +57,13 @@ public class AccountService {
     }
 
     public Account updateAccountById(Long accountId, Account account) {
-        if (!accountRepository.existsById(accountId)){
-            throw new ResourceNotFoundException("Account with ID" + " " + accountId + " " + "does not exist");
+        Optional<Account> fetchedAccount = accountRepository.findById(accountId);
+//        if (!accountRepository.existsById(accountId)){
+//            throw new ResourceNotFoundException("Account with ID" + " " + accountId + " " + "does not exist");
+//        }
+
+        if(!fetchedAccount.get().getRole().equals(account.getRole())){
+            throw new InvalidPermissionException("You have not permission to change your role");
         }
         account.setId(accountId);
         return accountRepository.save(account);

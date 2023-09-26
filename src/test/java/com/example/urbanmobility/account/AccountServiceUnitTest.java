@@ -1,9 +1,7 @@
 package com.example.urbanmobility.account;
-import com.example.urbanmobility.account.Account;
-import com.example.urbanmobility.account.AccountService;
 import com.example.urbanmobility.exception.InvalidInputException;
+import com.example.urbanmobility.exception.InvalidPermissionException;
 import com.example.urbanmobility.exception.ResourceNotFoundException;
-import com.example.urbanmobility.account.AccountRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,8 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -49,7 +47,7 @@ class AccountServiceUnitTest {
         inputAccount = Account.builder()
                 .id(1L)
                 .username("Lisa")
-                .role("User")
+                .role("supplier")
                 .email("Lisa@example.com")
                 .phone("0812345678")
                 .paymentHistory(0)
@@ -205,6 +203,15 @@ class AccountServiceUnitTest {
         assertThat(updatedAccount.getUsername()).isEqualTo(inputAccount.getUsername());
         assertThat(updatedAccount.getId()).isEqualTo(inputAccount.getId());
         assertThat(updatedAccount.getEmail()).isEqualTo(inputAccount.getEmail());
+    }
 
+    @Test
+    public void test(){
+        long accountId = account.getId();
+        given(accountRepository.findById(accountId)).willReturn(Optional.ofNullable(account));
+
+
+        assertThrows(InvalidPermissionException.class,
+                () -> accountService.updateAccountById(accountId,inputAccount));
     }
 }
