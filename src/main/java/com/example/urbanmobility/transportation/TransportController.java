@@ -26,7 +26,7 @@ public class TransportController {
 
     @PostMapping("account/{accountId}")
     public Transport createRoute(@RequestBody Transport route, @PathVariable("accountId") long accountId){
-        return routeService.createRoute(route,accountId);
+        return routeService.createTransport(route,accountId);
     }
 
     @PutMapping("/{transportId}/account/{accountId}")
