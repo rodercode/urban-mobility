@@ -18,8 +18,12 @@ public class TransportService {
         this.authService = authService;
     }
 
-    public Transport createRoute(Transport transport, long accountId){
+    public Transport createTransport(Transport transport, long accountId){
         authService.validSupplier(accountId);
+        if(transport == null){
+            throw new InvalidInputException("Route cannot be null!");
+        }
+
         return transportRepository.save(transport);
     }
 
