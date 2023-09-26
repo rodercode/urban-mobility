@@ -3,6 +3,7 @@ import com.example.urbanmobility.exception.InvalidInputException;
 import com.example.urbanmobility.exception.InvalidPermissionException;
 import com.example.urbanmobility.model.ErrorRes;
 import com.example.urbanmobility.exception.ResourceNotFoundException;
+import org.hibernate.PropertyValueException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -36,6 +37,16 @@ public class ApiRequestExceptionHandler {
         ErrorRes error = new ErrorRes(
                 HttpStatus.CONFLICT.value(),
                 e.getMessage(),
+                ZonedDateTime.now(ZoneId.of("Z"))
+        );
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorRes> handleException(PropertyValueException e){
+        ErrorRes error = new ErrorRes(
+                HttpStatus.CONFLICT.value(),
+                "Invalid input, attributes can not be null!",
                 ZonedDateTime.now(ZoneId.of("Z"))
         );
         return new ResponseEntity<>(error, HttpStatus.CONFLICT);

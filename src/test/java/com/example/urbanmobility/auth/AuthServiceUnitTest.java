@@ -5,6 +5,8 @@ import com.example.urbanmobility.account.AccountRepository;
 import com.example.urbanmobility.account.AccountService;
 import com.example.urbanmobility.exception.InvalidInputException;
 import com.example.urbanmobility.exception.InvalidPermissionException;
+import com.example.urbanmobility.exception.ResourceNotFoundException;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -57,6 +59,30 @@ class AuthServiceUnitTest {
         // Act
         assertThrows(InvalidPermissionException.class,
                 () -> authService.validSupplier(account.getId()));
+    }
+
+    @Test
+    public void ShouldThrowException_IfAccountIdIsInvalid(){
+        // Arrange
+        given(accountService.getAccountById(account.getId())).willReturn(Optional.empty());
+
+        // Act
+        assertThrows(ResourceNotFoundException.class,
+                () -> authService.validSupplier(account.getId()));
+    }
+
+    @Test
+    public void ShouldReturnMessage_IfUserIsSupplier(){
+        // Arrange
+        long accountId = 1L;
+        given(accountService.getAccountById(accountId)).willReturn(Optional.ofNullable(account));
+        account.setRole("supplier");
+
+        // Act
+        authService.validSupplier(accountId);
+
+        // Assert
+        Assertions.assertThat(authService.validSupplier(accountId)).isEqualTo("You are a supplier!");
     }
 
 
