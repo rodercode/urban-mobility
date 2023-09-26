@@ -41,6 +41,9 @@ public class AccountService {
         if (accountRepository.findByEmail(email) != null) {
             throw new InvalidInputException("Email already exists");
         }
+        if(!account.getPhone().matches("[0-9]+")){
+            throw new InvalidInputException("Phone number should only contain digits");
+        }
         // Save account to database
         return accountRepository.save(account);
     }

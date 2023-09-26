@@ -12,6 +12,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
@@ -48,7 +51,7 @@ class AccountServiceUnitTest {
                 .username("Lisa")
                 .role("User")
                 .email("Lisa@example.com")
-                .phone("08123456789")
+                .phone("0812345678")
                 .paymentHistory(0)
                 .paymentMethod("swish")
                 .isPaymentSet(true)
@@ -102,6 +105,15 @@ class AccountServiceUnitTest {
                 () -> accountService.createAccount(account));
         verify(accountRepository, times(1)).findByEmail(account.getEmail());
     }
+
+    @Test
+    public void ShouldThrowException_WhenPhoneNumberNotContainsOnlyDigits(){
+        account.setPhone("gaglh45274214hg");
+        assertThrows(InvalidInputException.class,
+                () -> accountService.createAccount(account));
+    }
+
+
 
      /*
     Class: AccountService
