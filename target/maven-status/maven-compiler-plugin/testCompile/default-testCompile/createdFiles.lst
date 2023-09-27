@@ -1,6 +1,0 @@
-com\example\urbanmobility\auth\AuthServiceIntegrationTest.class
-com\example\urbanmobility\account\AccountServiceIntegrationTest.class
-com\example\urbanmobility\account\AccountServiceUnitTest.class
-com\example\urbanmobility\auth\AuthServiceUnitTest.class
-com\example\urbanmobility\UrbanMobilityApplicationTests.class
-com\example\urbanmobility\account\AccountControllerEndToEndTest.class
