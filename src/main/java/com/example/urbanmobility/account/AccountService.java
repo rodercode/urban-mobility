@@ -58,9 +58,9 @@ public class AccountService {
 
     public Account updateAccountById(Long accountId, Account account) {
         Optional<Account> fetchedAccount = accountRepository.findById(accountId);
-        if (fetchedAccount.isEmpty()){
-            throw new ResourceNotFoundException("Account with ID" + " " + accountId + " " + "does not exist");
-        }
+//        if (!accountRepository.existsById(accountId)){
+//            throw new ResourceNotFoundException("Account with ID" + " " + accountId + " " + "does not exist");
+//        }
 
         if(!fetchedAccount.get().getRole().equals(account.getRole())){
             throw new InvalidPermissionException("You have not permission to change your role");
