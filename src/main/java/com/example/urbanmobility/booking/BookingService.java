@@ -11,15 +11,13 @@ public class BookingService {
     private TransportService transportService;
     private AccountService accountService;
 
-    public BookingService(TransportService transportService) {
+    public BookingService(TransportService transportService, AccountService accountService) {
         this.transportService = transportService;
+        this.accountService = accountService;
     }
 
     public void makeBooking(long transportId, long accountId) {
         Account account = accountService.getAccountById(accountId).get();
-//        if(!account.getPaymentSet().equals("true")){
-//            throw new IllegalArgumentException("You have to set your payment method");
-//        }
         transportService.updateRouteById(transportId, accountId);
     }
 

@@ -1,8 +1,6 @@
-package com.example.urbanmobility.account;
+package com.example.urbanmobility.auth;
 import com.example.urbanmobility.account.Account;
-import com.example.urbanmobility.account.AccountRepository;
 import com.example.urbanmobility.account.AccountService;
-import com.example.urbanmobility.auth.AuthService;
 import com.example.urbanmobility.exception.InvalidPermissionException;
 import com.example.urbanmobility.exception.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,8 +37,6 @@ public class AuthServiceIntegrationTest {
                 .paymentMethod("swish")
                 .isPaymentSet(true)
                 .build();
-
-
     }
     @Test
     public void ShouldThrowException_IfAccountIsNotASupplier(){
