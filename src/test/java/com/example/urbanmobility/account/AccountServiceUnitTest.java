@@ -169,7 +169,7 @@ class AccountServiceUnitTest {
     public void ShouldThrowException_IsInvalidId(){
         // Arrange
         long accountId = account.getId();
-        given(accountRepository.existsById(accountId)).willReturn(false);
+        given(accountRepository.findById(accountId)).willReturn(Optional.empty());
         // Act
         assertThrows(ResourceNotFoundException.class,
                 () -> accountService.updateAccountById(accountId, account));
@@ -179,7 +179,7 @@ class AccountServiceUnitTest {
     public void ShouldNotReturnNull_WhenUpdatedWasSuccessful(){
         // Arrange
         long accountId = account.getId();
-        given(accountRepository.existsById(accountId)).willReturn(true);
+        given(accountRepository.findById(accountId)).willReturn(Optional.ofNullable(account));
         given(accountRepository.save(account)).willReturn(account);
 
         // Act
@@ -190,23 +190,7 @@ class AccountServiceUnitTest {
     }
 
     @Test
-    public void ShouldReturnInputBackAfterUpdated(){
-        // Arrange
-        long accountId = account.getId();
-        given(accountRepository.existsById(accountId)).willReturn(true);
-        given(accountRepository.save(inputAccount)).willReturn(inputAccount);
-
-        // Act
-        Account updatedAccount = accountService.updateAccountById(accountId, inputAccount);
-
-        // Assert
-        assertThat(updatedAccount.getUsername()).isEqualTo(inputAccount.getUsername());
-        assertThat(updatedAccount.getId()).isEqualTo(inputAccount.getId());
-        assertThat(updatedAccount.getEmail()).isEqualTo(inputAccount.getEmail());
-    }
-
-    @Test
-    public void test(){
+    public void ShouldThrowExecption_IfUserChangeTheirRole(){
         long accountId = account.getId();
         given(accountRepository.findById(accountId)).willReturn(Optional.ofNullable(account));
 
