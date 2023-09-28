@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-
+#testing
 FROM eclipse-temurin:17-jdk-jammy as base
 WORKDIR /app
 COPY .mvn/ .mvn
