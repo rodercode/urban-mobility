@@ -1,5 +1,4 @@
 # Urban Mobility
-![image](https://github.com/rodercode/urban-mobility/assets/54941923/86c818ad-7a73-4eed-9b1a-96704318ca27)
 
 ## What I have learned
 - Create unit, integration and end-to-end tests in Junit 5
