@@ -49,8 +49,17 @@ Return to Dashboard, press the job you just created, then Build.
 <br />
 
 ## Setting up pipeline for testing our project in prod environment
-![image](https://github.com/rodercode/urban-mobility/assets/54941923/6287d6a4-d661-4ec7-9b2e-aa312d48b53d)
-![image](https://github.com/rodercode/urban-mobility/assets/54941923/fc13edd5-cf5d-4eed-8c38-4ebfd93b9c4e)
+![image](https://github.com/rodercode/urban-mobility/assets/54941923/068e5439-a1cc-4a13-90b2-4068445158bf)
+To add a new job, you need to press new item.
+<br />
+<br />
+<br />
+
+![image](https://github.com/rodercode/urban-mobility/assets/54941923/bf4fc827-df8b-417a-8fd8-3a8cbd8cf92c)
+Enter your repository name and select Freestyle project
+<br />
+<br />
+<br />
 
 ![image](https://github.com/rodercode/urban-mobility/assets/54941923/c3b8f623-dbd2-4544-8a07-3933f8f04cad)
 ![image](https://github.com/rodercode/urban-mobility/assets/54941923/88bd210b-17b1-4e45-b948-386be9a434c4)
