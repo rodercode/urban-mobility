@@ -6,6 +6,13 @@
 
 ## Setting up pipeline for testing our project in dev environment
 
+
+
+
+
+
+
+
 ![image](https://github.com/rodercode/urban-mobility/assets/54941923/068e5439-a1cc-4a13-90b2-4068445158bf)
 
 To add a new job, you need to press new item.
