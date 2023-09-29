@@ -2,6 +2,7 @@ package com.example.urbanmobility.booking;
 import com.example.urbanmobility.PaymentService;
 import com.example.urbanmobility.account.Account;
 import com.example.urbanmobility.exception.InvalidInputException;
+import com.example.urbanmobility.exception.PaymentDeclinedException;
 import com.example.urbanmobility.transportation.Transport;
 import com.example.urbanmobility.transportation.TransportService;
 import org.junit.jupiter.api.Assertions;
@@ -11,7 +12,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.stubbing.Answer;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
@@ -65,7 +65,7 @@ class BookingServiceUnitTest {
         given(paymentService.makePayment(1L)).willReturn(false);
 
         // Act
-        assertThrows(InvalidInputException.class,
+        assertThrows(PaymentDeclinedException.class,
                 () -> bookingService.makeBooking(transportId, accountId));
     }
 
