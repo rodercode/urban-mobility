@@ -55,14 +55,29 @@ To add a new job, you need to press new item.
 <br />
 <br />
 
-![image](https://github.com/rodercode/urban-mobility/assets/54941923/bf4fc827-df8b-417a-8fd8-3a8cbd8cf92c)
+![image](https://github.com/rodercode/urban-mobility/assets/54941923/ad9da0d3-5097-48bb-a789-e7e7ae01d1eb)
 Enter your repository name and select Freestyle project
 <br />
 <br />
 <br />
 
 ![image](https://github.com/rodercode/urban-mobility/assets/54941923/c3b8f623-dbd2-4544-8a07-3933f8f04cad)
+Go to your job's configure and look for the Source Code Management section, select Git and enter your repository URL
+In the Branches to build section, change */master to the branch you want Jenkins to test */main
+<br />
+<br />
+<br />
+
 ![image](https://github.com/rodercode/urban-mobility/assets/54941923/88bd210b-17b1-4e45-b948-386be9a434c4)
+In the Build Steps, press the button Add build step and select Execute Windows batch command
+In the Command field, enter the following command:
+    echo "STEP #1 - STARTING CLEANING STEP" 
+    ./mvnw clean
+Which will run this command every time you build your project in Jenkins
+
+repeat step 4 and enter the following command:
+    echo "STEP #2 - STARTING PACKAGE STEP" 
+    ./mvnw package
 ![image](https://github.com/rodercode/urban-mobility/assets/54941923/2f4de45d-4971-41c0-8821-696d06fcea6b)
 ![image](https://github.com/rodercode/urban-mobility/assets/54941923/b026b2d1-ce9f-4773-a54c-07747e2de3e8)
 
