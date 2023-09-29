@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM eclipse-temurin:17-jdk-jammy as base
+FROM openjdk:17-jdk-alpine as base
 WORKDIR /app
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
@@ -17,6 +17,6 @@ FROM base as build
 CMD ["./mvnw, package"]
 
 
-FROM eclipse-temurin:17-jre-jammy as production
+FROM openjdk:17-jdk-alpine as production
 EXPOSE 8080
 CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "target/urban-mobility.jar"]
