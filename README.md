@@ -4,8 +4,6 @@
 - Create unit, integration and end-to-end tests in Junit 5
 - Using Jenkins to automate the build process
 
-### How to configure Jenkins to run tests
-
 ## Setting up pipeline for testing our project in dev environment
 
 ![image](https://github.com/rodercode/urban-mobility/assets/54941923/068e5439-a1cc-4a13-90b2-4068445158bf)
@@ -41,4 +39,14 @@ Which will run this command every time you build your project in Jenkins
 
 Return to Dashboard, press the job you just created, then Build.
 
-## Setting up pipeline for testing our project in dev environment
+## Setting up pipeline for testing our project in prod environment
+![image](https://github.com/rodercode/urban-mobility/assets/54941923/c3b8f623-dbd2-4544-8a07-3933f8f04cad)
+![image](https://github.com/rodercode/urban-mobility/assets/54941923/88bd210b-17b1-4e45-b948-386be9a434c4)
+![image](https://github.com/rodercode/urban-mobility/assets/54941923/2f4de45d-4971-41c0-8821-696d06fcea6b)
+![image](https://github.com/rodercode/urban-mobility/assets/54941923/b026b2d1-ce9f-4773-a54c-07747e2de3e8)
+
+
+
+
+
+
