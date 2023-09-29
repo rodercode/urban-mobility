@@ -1,22 +1,24 @@
-# syntax=docker/dockerfile:1
-
 FROM openjdk:17-jdk-alpine as base
 WORKDIR /app
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
-CMD ["./mvnw, dependency:resolve"]
+# Use a shell to combine commands
+RUN ./mvnw dependency:resolve
 COPY src ./src
 
 FROM base as test
-CMD ["./mvnw", "test"]
+# Use a shell to combine commands
+RUN ./mvnw test
 
 FROM base as development
-CMD ["./mvnw", "spring-boot:run", "-Dspring-boot.run.profiles=mysql", "-Dspring-boot.run.jvmArguments='-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000'"]
+# Use a shell to combine commands
+RUN ./mvnw spring-boot:run -Dspring-boot.run.profiles=mysql -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000"
 
 FROM base as build
-CMD ["./mvnw, package"]
-
+# Use a shell to combine commands
+RUN ./mvnw package
 
 FROM openjdk:17-jdk-alpine as production
 EXPOSE 8080
-CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "target/urban-mobility.jar"]
+COPY --from=build /app/target/urban-mobility.jar /app/urban-mobility.jar
+CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app/urban-mobility.jar"]
