@@ -30,6 +30,8 @@ class AccountControllerEndToEndTest {
     private Account account;
     private String jsonAccount;
 
+//    Why is testing so diffucult!
+
     @BeforeEach
     public void setup() throws JsonProcessingException {
 
