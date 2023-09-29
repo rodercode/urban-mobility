@@ -70,16 +70,25 @@ In the Branches to build section, change */master to the branch you want Jenkins
 
 ![image](https://github.com/rodercode/urban-mobility/assets/54941923/88bd210b-17b1-4e45-b948-386be9a434c4)
 In the Build Steps, press the button Add build step and select Execute Windows batch command
-In the Command field, enter the following command:
-    echo "STEP #1 - STARTING CLEANING STEP" 
-    ./mvnw clean
-Which will run this command every time you build your project in Jenkins
+In the Command fields, enter the following command
+<br />
+<br />
+<br />
 
-repeat step 4 and enter the following command:
-    echo "STEP #2 - STARTING PACKAGE STEP" 
-    ./mvnw package
 ![image](https://github.com/rodercode/urban-mobility/assets/54941923/2f4de45d-4971-41c0-8821-696d06fcea6b)
+In the Command fields, enter the following commands. 
+<br />
+<br />
+<br />
+
+
 ![image](https://github.com/rodercode/urban-mobility/assets/54941923/b026b2d1-ce9f-4773-a54c-07747e2de3e8)
+In the Command fields, enter the following commands. 
+<br />
+<br />
+<br />
+
+
 
 
 
