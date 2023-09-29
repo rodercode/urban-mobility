@@ -1,12 +1,12 @@
 # Urban Mobility
 
-## What I have learned
+### What I have learned
 - Create unit, integration and end-to-end tests in Junit 5
 - Using Jenkins to automate the build process
 
-## How to configure Jenkins to run tests
+### How to configure Jenkins to run tests
 
-# Setting up pipeline for testing our project in dev environment
+## Setting up pipeline for testing our project in dev environment
 
 ![image](https://github.com/rodercode/urban-mobility/assets/54941923/068e5439-a1cc-4a13-90b2-4068445158bf)
 
@@ -40,3 +40,5 @@ Which will run this command every time you build your project in Jenkins
 ![image](https://github.com/rodercode/urban-mobility/assets/54941923/3b7c174b-5051-46e8-ae21-1c6516c715ef)
 
 Return to Dashboard, press the job you just created, then Build.
+
+## Setting up pipeline for testing our project in dev environment
