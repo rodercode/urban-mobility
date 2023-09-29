@@ -1,6 +1,7 @@
 package com.example.urbanmobility.handler;
 import com.example.urbanmobility.exception.InvalidInputException;
 import com.example.urbanmobility.exception.InvalidPermissionException;
+import com.example.urbanmobility.exception.PaymentDeclinedException;
 import com.example.urbanmobility.model.ErrorRes;
 import com.example.urbanmobility.exception.ResourceNotFoundException;
 import org.hibernate.PropertyValueException;
@@ -47,6 +48,16 @@ public class ApiRequestExceptionHandler {
         ErrorRes error = new ErrorRes(
                 HttpStatus.CONFLICT.value(),
                 "Invalid input, attributes can not be null!",
+                ZonedDateTime.now(ZoneId.of("Z"))
+        );
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorRes> handleException(PaymentDeclinedException e){
+        ErrorRes error = new ErrorRes(
+                HttpStatus.CONFLICT.value(),
+                "Payment was unsuccessful, please setup your payment methods",
                 ZonedDateTime.now(ZoneId.of("Z"))
         );
         return new ResponseEntity<>(error, HttpStatus.CONFLICT);

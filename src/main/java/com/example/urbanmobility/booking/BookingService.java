@@ -1,4 +1,5 @@
 package com.example.urbanmobility.booking;
+import com.example.urbanmobility.PaymentService;
 import com.example.urbanmobility.exception.InvalidInputException;
 import com.example.urbanmobility.transportation.TransportService;
 import org.springframework.stereotype.Service;
@@ -7,16 +8,19 @@ import org.springframework.stereotype.Service;
 public class BookingService {
 
     private TransportService transportService;
+    private PaymentService paymentService;
 
-    public BookingService(TransportService transportService) {
+    public BookingService(TransportService transportService, PaymentService paymentService) {
         this.transportService = transportService;
+        this.paymentService = paymentService;
     }
 
-    public void makeBooking(long transportId, long accountId) {
-//        if(paymentService.checkPayment == "Invalid payment"){
-//            throw new InvalidInputException("Payment was not successful");
-//        }
+    public String makeBooking(long transportId, long accountId) {
+        if(!paymentService.makePayment(accountId)){
+            throw new InvalidInputException("Invalid payment");
+        }
         transportService.updateRouteById(transportId, accountId);
+        return "Booking was successful";
     }
 
     public void removeBooking(long transportId) {
