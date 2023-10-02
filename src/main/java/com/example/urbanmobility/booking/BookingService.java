@@ -24,7 +24,10 @@ public class BookingService {
         return "Booking was successful";
     }
 
-    public void removeBooking(long transportId) {
+    public String removeBooking(long transportId) {
         transportService.updateRouteById(transportId);
+        return "Booking was remove";
     }
+
+
 }
