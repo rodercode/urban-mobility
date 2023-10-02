@@ -1,7 +1,6 @@
 package com.example.urbanmobility.booking;
 import com.example.urbanmobility.PaymentService;
 import com.example.urbanmobility.account.Account;
-import com.example.urbanmobility.exception.InvalidInputException;
 import com.example.urbanmobility.exception.PaymentDeclinedException;
 import com.example.urbanmobility.transportation.Transport;
 import com.example.urbanmobility.transportation.TransportService;
@@ -57,6 +56,14 @@ class BookingServiceUnitTest {
                 .build();
     }
 
+    /*
+    Class: BookingService
+    Method: makeBooking
+    Type of test: Unit test
+
+    Description: System should provide a way for the user to make a new booking
+    */
+
     @Test
     public void ShouldThrowException_WhenPaymentFail(){
         // Arrange
@@ -78,11 +85,32 @@ class BookingServiceUnitTest {
         given(transportService.updateRouteById(transportId, accountId)).willReturn(transport);
 
         // Act
-       String messsage =  bookingService.makeBooking(transportId,accountId);
+       String message =  bookingService.makeBooking(transportId,accountId);
 
         // Assert
-        Assertions.assertEquals("Booking was successful", messsage);
+        Assertions.assertEquals("Booking was successful", message);
     }
 
+
+    /*
+    Class: BookingService
+    Method: removeBooking
+    Type of test: Unit test
+
+    Description: System should provide a way for the user to remove their bookings
+
+    */
+
+    @Test
+    public void ShouldReturnMessage_IfBookingWasDeleted(){
+        // Arrange
+        long transportId = transport.getId();
+
+        // Act
+        String message =  bookingService.removeBooking(transportId);
+
+        // Assert
+        Assertions.assertEquals("Booking was remove", message);
+    }
 }
 
