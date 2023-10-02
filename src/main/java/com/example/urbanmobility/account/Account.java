@@ -42,9 +42,4 @@ public class Account {
     @JoinColumn(name ="account_id",referencedColumnName = "id")
     private List<Transport> routes;
 
-
-//    @OneToMany(targetEntity = Order.class,cascade = CascadeType.ALL)
-//    @JoinColumn(name ="account_id",referencedColumnName = "id")
-//    @Column(name="order",nullable = false)
-//    private List<Order> orders;
 }
