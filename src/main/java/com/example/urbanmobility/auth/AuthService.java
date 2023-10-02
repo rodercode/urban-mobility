@@ -1,7 +1,6 @@
 package com.example.urbanmobility.auth;
 import com.example.urbanmobility.account.Account;
 import com.example.urbanmobility.account.AccountService;
-import com.example.urbanmobility.exception.InvalidInputException;
 import com.example.urbanmobility.exception.InvalidPermissionException;
 import com.example.urbanmobility.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;

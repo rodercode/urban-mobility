@@ -96,9 +96,7 @@ class BookingServiceUnitTest {
     Class: BookingService
     Method: removeBooking
     Type of test: Unit test
-
     Description: System should provide a way for the user to remove their bookings
-
     */
 
     @Test
